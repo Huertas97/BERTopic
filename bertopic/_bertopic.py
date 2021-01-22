@@ -725,12 +725,16 @@ class BERTopic:
         if isinstance(embeddings, csr_matrix):
             self.umap_model = umap.UMAP(n_neighbors=self.n_neighbors,
                                         n_components=self.n_components,
-                                        metric='hellinger').fit(embeddings)
+                                        metric='hellinger',
+                                        low_memory = True, 
+                                       ).fit(embeddings)
         else:
             self.umap_model = umap.UMAP(n_neighbors=self.n_neighbors,
                                         n_components=self.n_components,
                                         min_dist=0.0,
-                                        metric='cosine').fit(embeddings)
+                                        metric='cosine',
+                                        low_memory = True, 
+                                       ).fit(embeddings)
         umap_embeddings = self.umap_model.transform(embeddings)
         logger.info("Reduced dimensionality with UMAP")
         return umap_embeddings
