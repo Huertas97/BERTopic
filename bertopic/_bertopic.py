@@ -82,6 +82,7 @@ class BERTopic:
                  n_neighbors: int = 15,
                  n_components: int = 5,
                  random_state: inst = 42,
+                 low_memory: bool = False,
                  stop_words: Union[str, List[str]] = None,
                  verbose: bool = False,
                  vectorizer: CountVectorizer = None,
@@ -145,6 +146,7 @@ class BERTopic:
         self.language = language
         self.embedding_model = embedding_model
         self.allow_st_model = allow_st_model
+        
 
         # Topic-based parameters
         if top_n_words > 30:
@@ -157,6 +159,8 @@ class BERTopic:
         # Umap parameters
         self.n_neighbors = n_neighbors
         self.n_components = n_components
+        self.random_state = random_state
+        self.low_memory = low_memory
 
         # Vectorizer parameters
         self.stop_words = stop_words
@@ -727,7 +731,7 @@ class BERTopic:
             self.umap_model = umap.UMAP(n_neighbors=self.n_neighbors,
                                         n_components=self.n_components,
                                         metric='hellinger',
-                                        low_memory = True, 
+                                        low_memory = self.low_memory, 
                                         random_state=42
                                        ).fit(embeddings)
         else:
@@ -735,7 +739,7 @@ class BERTopic:
                                         n_components=self.n_components,
                                         min_dist=0.0,
                                         metric='cosine',
-                                        low_memory = True, 
+                                        low_memory = self.low_memory, 
                                         random_state=42
                                        ).fit(embeddings)
         umap_embeddings = self.umap_model.transform(embeddings)
