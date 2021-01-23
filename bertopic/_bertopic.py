@@ -727,6 +727,7 @@ class BERTopic:
                                         n_components=self.n_components,
                                         metric='hellinger',
                                         low_memory = True, 
+                                        random_state=42
                                        ).fit(embeddings)
         else:
             self.umap_model = umap.UMAP(n_neighbors=self.n_neighbors,
@@ -734,6 +735,7 @@ class BERTopic:
                                         min_dist=0.0,
                                         metric='cosine',
                                         low_memory = True, 
+                                        random_state=42
                                        ).fit(embeddings)
         umap_embeddings = self.umap_model.transform(embeddings)
         logger.info("Reduced dimensionality with UMAP")
