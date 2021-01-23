@@ -81,7 +81,7 @@ class BERTopic:
                  min_topic_size: int = 10,
                  n_neighbors: int = 15,
                  n_components: int = 5,
-                 random_state: inst = 42,
+                 random_state: int = 42,
                  low_memory: bool = False,
                  stop_words: Union[str, List[str]] = None,
                  verbose: bool = False,
