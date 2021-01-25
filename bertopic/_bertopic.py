@@ -893,7 +893,10 @@ class BERTopic:
         # If a custom embeddings are used, we use the multi-langual model
         # to extract word embeddings
         if self.custom_embeddings and self.allow_st_model:
-            return SentenceTransformer("xlm-r-bert-base-nli-stsb-mean-tokens")
+            if self.embedding_model == None:
+                return SentenceTransformer("xlm-r-bert-base-nli-stsb-mean-tokens")
+            else:
+                return SentenceTransformer(self.embedding_model)
 
         # Select embedding model based on specific sentence transformer model
         elif self.embedding_model:
