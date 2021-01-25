@@ -891,7 +891,7 @@ class BERTopic:
 
         # Used for fine-tuning the topic representation
         # If a custom embeddings are used, we use the multi-langual model
-        # to extract word embeddings
+        # to extract word embeddings. Now the user can select the multilingual st model. 
         if self.custom_embeddings and self.allow_st_model:
             if self.embedding_model == None:
                 return SentenceTransformer("xlm-r-bert-base-nli-stsb-mean-tokens")
