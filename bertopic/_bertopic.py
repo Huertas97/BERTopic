@@ -167,7 +167,7 @@ class BERTopic:
         self.umap_metric = umap_metric
         
         # HDBSCAN
-        self.hdbscan_metirc = hdbscan_metric
+        self.hdbscan_metric = hdbscan_metric
         self.hdbscan_min_samples = hdbscan_min_samples
 
 
