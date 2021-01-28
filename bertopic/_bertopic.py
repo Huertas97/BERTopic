@@ -85,6 +85,9 @@ class BERTopic:
                  low_memory: bool = False,
                  stop_words: Union[str, List[str]] = None,
                  verbose: bool = False,
+                 umap_metric: str = "hellinger",
+                 hdbscan_metric: str = "euclidean",
+                 hdbscan_min_samples: int = None
                  vectorizer: CountVectorizer = None,
                  calculate_probabilities: bool = True,
                  allow_st_model: bool = True):
@@ -161,6 +164,12 @@ class BERTopic:
         self.n_components = n_components
         self.random_state = random_state
         self.low_memory = low_memory
+        self.umap_metric = umap_metric
+        
+        # HDBSCAN
+        self.hdbscan_metirc = hdbscan_metric
+        self.hdbscan_min_samples = hdbscan_min_samples
+
 
         # Vectorizer parameters
         self.stop_words = stop_words
@@ -762,7 +771,8 @@ class BERTopic:
             probabilities: The distribution of probabilities
         """
         self.cluster_model = hdbscan.HDBSCAN(min_cluster_size=self.min_topic_size,
-                                             metric='euclidean',
+                                             min_samples = self.hdbscan_min_samples,
+                                             metric=self.hdbscan_metric,
                                              cluster_selection_method='eom',
                                              prediction_data=True).fit(umap_embeddings)
         documents['Topic'] = self.cluster_model.labels_
