@@ -87,7 +87,7 @@ class BERTopic:
                  verbose: bool = False,
                  umap_metric: str = "hellinger",
                  hdbscan_metric: str = "euclidean",
-                 hdbscan_min_samples: int = None
+                 hdbscan_min_samples: int = None,
                  vectorizer: CountVectorizer = None,
                  calculate_probabilities: bool = True,
                  allow_st_model: bool = True):
